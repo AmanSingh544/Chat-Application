@@ -1,11 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { MessageItem } from './MessageItem';
 import './index.css';
 import { getRelativeDateLabels } from '../utils/dateCalculation';
+import { ThemeContext } from '../context/ThemeContext';
 
 export function ChatWindow({ messages, clientId }) {
     const meesageEndRef = useRef(null);
-
+    const themeContext = useContext(ThemeContext);
+    const theme = themeContext?.theme === "light" ? themeContext.themeColors.light : themeContext.themeColors.dark;
     useEffect(() => {
         if(meesageEndRef.current){
             meesageEndRef.current.scrollIntoView({behavior: 'smooth'});
@@ -15,7 +17,7 @@ export function ChatWindow({ messages, clientId }) {
     let lastDateLabel = null;
 
     return (
-        <div className="messages" id="messages">
+        <div className="messages" id="messages" style={{background: theme.background, color: theme.color}}>
             {messages.map((msg, index) => {
                 const currentDateLabel = getRelativeDateLabels(msg.createdAt ?? new Date().toISOString());
                 const showDateLabel = currentDateLabel !== lastDateLabel;

@@ -1,6 +1,8 @@
 import { Box, Typography, Avatar, IconButton, Tooltip, Menu, MenuItem } from "@mui/material";
 import { Logout, Settings, Brightness4, Circle } from "@mui/icons-material";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ThemeContext } from "../context/ThemeContext";
+import { AuthContext } from "../context/AuthContext";
 
 const Header = ({ user, onLogout }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -8,6 +10,9 @@ const Header = ({ user, onLogout }) => {
 
   const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
+
+  const themeContext = useContext(ThemeContext);
+  const authContext = useContext(AuthContext);
 
   return (
     <Box
@@ -55,10 +60,10 @@ const Header = ({ user, onLogout }) => {
         <MenuItem onClick={handleMenuClose}>
           <Settings fontSize="small" sx={{ mr: 1 }} /> Settings
         </MenuItem>
-        <MenuItem onClick={handleMenuClose}>
+        <MenuItem onClick={() => {handleMenuClose(); themeContext.toogleTheme()}}>
           <Brightness4 fontSize="small" sx={{ mr: 1 }} /> Toggle Theme
         </MenuItem>
-        <MenuItem onClick={() => { handleMenuClose(); onLogout(); }}>
+        <MenuItem onClick={() => { handleMenuClose(); authContext.setLogout(); }}>
           <Logout fontSize="small" sx={{ mr: 1 }} /> Logout
         </MenuItem>
       </Menu>
