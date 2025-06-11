@@ -7,6 +7,7 @@ import AuthPage from './pages/AuthPage';
 import { RoomSelectorPage } from './pages/RoomSelectorPage';
 import NotificationProvider from './context/NotificationContext';
 import Layout from './pages/Layout';
+import { ThemeContextProvider } from './context/ThemeContext';
 
 function App() {
 
@@ -15,26 +16,37 @@ function App() {
     return user ? <Outlet /> : <Navigate to="/login" />;
   };
 
+  // WelcomeMessage.jsx
+  const WelcomeMessage = () => (
+    <div style={{ textAlign: "center", marginTop: "20vh", color: "#888", fontSize: "1.2rem" }}>
+      👉 Select a room from the left to open the chat.
+    </div>
+  );
+
+
   return (
-    <NotificationProvider>
-      <AuthProvider>
-        <SocketProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/*" element={<Navigate to="/login" />} />
-              <Route path="/login" element={<AuthPage />} />
+    <ThemeContextProvider>
+      <NotificationProvider>
+        <AuthProvider>
+          <SocketProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/*" element={<Navigate to="/login" />} />
+                <Route path="/login" element={<AuthPage />} />
 
-              <Route element={<PrivateRoute />}>
-                <Route path="/dashboard" element={<Layout />}>
-                  <Route path="chat/:roomId" element={<ChatPage />} />
+                <Route element={<PrivateRoute />}>
+                  <Route path="/dashboard" element={<Layout />}>
+                    <Route index element={<WelcomeMessage />} />
+                    <Route path="chat/:roomId" element={<ChatPage />} />
+                  </Route>
                 </Route>
-              </Route>
-            </Routes>
+              </Routes>
 
-          </BrowserRouter>
-        </SocketProvider>
-      </AuthProvider>
-    </NotificationProvider>
+            </BrowserRouter>
+          </SocketProvider>
+        </AuthProvider>
+      </NotificationProvider>
+    </ThemeContextProvider>
   );
 }
 

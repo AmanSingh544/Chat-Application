@@ -54,7 +54,7 @@ body {
   word-wrap: break-word;
 }
 
-.messageTimelabel {
+/* .messageTimelabel {
   width: 60%;
   align-self: center;
   text-align: center;
@@ -65,7 +65,36 @@ body {
   background-color: #6e6e6e;
   border-radius: 20px;
   color: white;
+} */
+
+/* Make the date label sticky */
+.messageTimelabel {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f0f0f0; /* adjust as needed */
+  text-align: center;
+  padding: 4px 8px;
+  margin: 8px 0;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 12px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
+
+/* Optional: animate if you want a smoother effect */
+.messageTimelabel::after {
+  content: "";
+  display: block;
+  height: 1px;
+  margin-top: 4px;
+  background: #ccc;
+}
+
 
 .time {
   display: block;

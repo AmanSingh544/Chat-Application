@@ -129,7 +129,7 @@ function ChatPage() {
     <div className="chat-container" style={{ display: 'flex', height: '100vh' }}>
 
   {/* Right Section: Chat Area */}
-  <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+  <div style={{ flex: 1, display: 'flex', flexDirection: 'column' , position: 'relative'}}>
     
     {/* Chat Header */}
     <ChatHeader
@@ -158,7 +158,7 @@ function ChatPage() {
     )}
 
     {/* Message Input */}
-    <Box sx={{ bgcolor: '#f9f9f9', px: 2, py: 1, boxShadow: 2 }}>
+    <Box sx={{ bgcolor: '#f9f9f9', px: 0, py: 1, boxShadow: 2, position:'sticky', bottom: '0px' }}>
       <MessageInput onSend={sendMessage} emitTyping={emitTyping} roomMembers={roomMembers} />
     </Box>
   </div>

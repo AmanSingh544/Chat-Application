@@ -1,4 +1,5 @@
-const API_BASE_URL = 'http://localhost:3000/';
+//const API_BASE_URL = 'http://localhost:3000/';
+const API_BASE_URL = 'https://chat-application-l78n.onrender.com/'; 
 
 const API_ENDPOINTS = {
   LOGIN: `api/auth/login`,
