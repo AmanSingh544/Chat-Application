@@ -1,18 +1,35 @@
 const mongoose = require('mongoose');
+const User = require('./User');
+const Room = require('./Room');
 
 const MessageSchema = new mongoose.Schema({
-    text: {
+    content: {
         type: String,
         required: true,
         trim: true,
     },
     senderId: {
-        type: String, required: true
+        type: mongoose.Types.ObjectId, 
+        ref: 'User',
+        required: true
+    },
+    senderName: {
+        type: String,
+    },
+    status: {
+        type: String,
+        enum: ['sending', 'sent', 'delivered', 'read'],
+        default: 'sending'
+    },
+    isOwn: {
+        type: Boolean
     },
     roomId: {
-        type: String
+        type: mongoose.Types.ObjectId,
+        ref: 'Room',
+        required: true
     },
-    timestamps:{
+    timestamp:{
         type: Date,
         default: Date.now()
     }

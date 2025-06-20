@@ -7,6 +7,17 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         trim: true
     },
+    avatar:{
+        type: String
+    },
+    color: {
+        type: String
+    },
+    status: {
+        type: String,
+        enum: ['online', 'offline', 'away'],
+        default: 'online'
+    },
     password: {
         type: String,
         required: true

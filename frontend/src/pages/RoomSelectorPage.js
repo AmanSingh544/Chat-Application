@@ -55,7 +55,7 @@ export const RoomSelectorPage = () => {
 
   return (
     <Box sx={{ p: 2, maxWidth: 600, mx: 'auto' }}>
-      <Paper elevation={3} sx={{ p: 3, borderRadius: 2 }}>
+      {/* <Paper elevation={3} sx={{ p: 3, borderRadius: 2 }}>
         <Typography variant="h6" gutterBottom fontWeight={600}>
           Create a New Room
         </Typography>
@@ -114,7 +114,7 @@ export const RoomSelectorPage = () => {
             {error}
           </Typography>
         )}
-      </Paper>
+      </Paper> */}
 
       <Rooms newlyCreatedRoom={newlyCreatedRoom} />
     </Box>

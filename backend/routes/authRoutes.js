@@ -10,7 +10,7 @@ if (!JWT_SECRET) {
 }
 
 router.post('/signup', async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, avatar = '', color = 'white', status = 'online' } = req.body;
     if (!username || !password) {
         return res.status(400).json({ error: 'Username and password are required' });
     }
@@ -21,11 +21,27 @@ router.post('/signup', async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ username, password: hashedPassword });
+        const newUser = new User({
+            username,
+            password: hashedPassword,
+            avatar,
+            color,
+            status
+        });
         await newUser.save();
 
         const token = jwt.sign({ _id: newUser._id, username: username }, JWT_SECRET);
-        res.status(201).json({ token, user: { _id: newUser._id, username: newUser.username }, success: true  });
+        res.status(201).json({ 
+            token,
+            user: {
+            _id: newUser._id,
+            username: newUser.username,
+            avatar: newUser.avatar,
+            color: newUser.color,
+            status: newUser.status
+                }, 
+            success: true  
+        });
     }
     catch (err) {
         console.error("Error during signup:", err.message);
@@ -54,7 +70,16 @@ router.post('/login', async (req, res) => {
         }
 
         const token = jwt.sign({ _id: user._id, username: user.username }, JWT_SECRET);
-        res.json({ token, user: { _id: user._id, username: user.username }, success: true });
+        res.json({ 
+            token, 
+            user: {
+                _id: user._id,
+                username: user.username,
+                avatar: user.avatar,
+                color: user.color,
+                status: user.status
+            },
+            success: true });
     } catch (err) {
         console.error("Error during login:", err.message);
         res.status(500).json({ message: 'Internal server error' });

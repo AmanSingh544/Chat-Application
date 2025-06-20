@@ -94,7 +94,6 @@ function ChatPage() {
   const sendMessage = (text) => {
     if (!text.trim()) return;
 
-    console.log('Sending message:', text, 'from clientId:', clientId.current);
 
     socket.emit('chat message', { text, senderId: clientId.current, roomId }, (err) => {
       if (err) console.error('Ack error:', err);

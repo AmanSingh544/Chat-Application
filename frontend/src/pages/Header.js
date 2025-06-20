@@ -15,9 +15,30 @@ const Header = ({ user, onLogout }) => {
   const authContext = useContext(AuthContext);
 
   return (
+    <>
+    <Box sx={{display:'flex', flexDirection:'row'}}>
+    <Box sx={{
+      width: '40%',
+      height: '60px',
+      background: 'white',
+      color: 'black',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingX: 2,
+      paddingY: 0,
+      position: 'sticky',
+      top: 0,
+      zIndex: 100,
+      boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+      overflowX: 'hidden', // ✅ Hide any accidental overflow
+      boxSizing: 'border-box', // ✅ Prevent width + padding issues
+    }}>
+      <h3>Logo</h3><span>ToogleSideBar</span>
+    </Box>
     <Box
     sx={{
-      width: '100%',
+      width: '60%',
       height: '60px',
       background: '#0047FF',
       color: 'white',
@@ -69,7 +90,8 @@ const Header = ({ user, onLogout }) => {
       </Menu>
     </Box>
   </Box>
-  
+    </Box>
+  </>
   );
 };
 

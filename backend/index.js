@@ -1,12 +1,12 @@
 const express = require('express');
-const {Server} = require('socket.io');
+const { Server } = require('socket.io');
 const cors = require('cors');
 const http = require('http');
 const connectDB = require('./utils/connectDB');
 require('dotenv').config({ path: './.env' });  // Load environment variables from .env file
 
 const authRoutes = require('./routes/authRoutes');
-const { verifySocketToken,verifyToken } = require('./middlewares/verifyToken');
+const { verifySocketToken, verifyToken } = require('./middlewares/verifyToken');
 const { setupChatHandlers } = require('./sockets/chatHandler');
 
 const app = express();
@@ -20,7 +20,10 @@ const io = new Server(server, {
 connectDB(); // Connect to MongoDB
 
 // Middleware to handle CORS
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    credentials: true
+}));
 
 // Middleware to parse JSON requests    
 app.use(express.json());
@@ -42,6 +45,13 @@ io.on('connection', (socket) => {
     setupChatHandlers(io, socket);
 });
 
+process.on('uncaughtException', (err) => {
+    console.error('Uncaught Exception:', err);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+});
 
 /*
 const messages = [];
